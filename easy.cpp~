@@ -16,7 +16,6 @@ bool strcomp(string s1, string s2){
 		return false;
 }
 
-
 int main(){
 	ifstream input_data;
 	input_data.open("stats.txt");

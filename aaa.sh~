@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for v0 in {1,2,3}
+do
+touch 3_${v0}_m.txt
+done
+echo to meet you $1

@@ -44,11 +44,25 @@ int str2int(string str) {
 }
 
 
-int main() {
+int main(int argc, char const *argv[]) {
     ifstream infile1;
-    infile1.open("operations.txt");
     ifstream infile2;
-    infile2.open("operations2.txt");
+    if (argc == 3) {
+        infile1.open(argv[1]);
+        infile2.open(argv[2]);
+    }
+    else if (argc == 2) {
+        infile1.open("operations.txt");
+        infile2.open(argv[1]);
+    }
+    else if (argc == 1) {
+        infile1.open("operations.txt");
+        infile2.open("init.txt");
+    }
+    else {
+        cout << "file cannot be opened" << endl;
+        return 0;
+    }
     
     string str1,str2;
     int threadd = 0;
@@ -56,6 +70,8 @@ int main() {
     string command1;
     int number1, number2;
     LinkedList<int> int_list;
+    int rmv = 0;
+    int add2 = 0;
 
     while(true){
         if (threadd == 0) {
@@ -65,6 +81,7 @@ int main() {
                 infile2.close();
                 return 0;
             }
+			//cout << "t1: " << str1 << endl;
             if (str1[0] == 'a') {
                 number1 = str2int(str1.substr(4,str1.length()-5));
                 res1 = int_list.add(number1);
@@ -73,6 +90,7 @@ int main() {
                     threadd = 1;        // real list yes, my list no.
                     str2 = "remove";
                     number2 = number1;
+                    add2 = 1;
                 }
                 else if (str1[0] == 'n' && res1) {
                     threadd = 1;        // real list no, my list yes.
@@ -91,8 +109,8 @@ int main() {
                     str2 = "add";
                     number2 = number1;
                 }
-                else if (str1[0] = 'n' && res1) {
-                    threadd = 1;        // read list no, my list yes.
+                else if (str1[0] == 'n' && res1) {
+                    threadd = 1;        // real list no, my list yes.
                     str2 = "remove";
                     number2 = number1;
                 }
@@ -107,6 +125,7 @@ int main() {
                     threadd = 1;        // real list yes, my list no.
                     str2 = "add";
                     number2 = number1;
+                    rmv = 1;
                 }
                 else if (str1[0] == 'n' && res1) {
                     threadd = 1;        // read list no, my list yes.
@@ -125,26 +144,41 @@ int main() {
         }
         else {
             if (!(infile2>>str1)){
-				//int_list.print();
+                int_list.print();
                 cout << "inconsistent" << endl;
                 infile1.close();
                 infile2.close();
                 return 0;
             }
+			//cout << "from t2: " << str1 << endl;
             if (str1[0] == 'a') {
                 number1 = str2int(str1.substr(4,str1.length()-5));
-                if (str2[0] == 'a' && number1 == number2)
-                    threadd = 0;
                 infile2 >> str1;
+                if (str1[0] == 'y')
+                    int_list.add(number1);
+                if (str2[0] == 'a' && number1 == number2 && str1[0] == 'y') {
+                    threadd = 0;
+                    if (rmv == 1) {
+                        rmv = 0;
+                        int_list.remove(number1);
+                    }
+                }
             }
             else if (str1[0] == 'c') {
                 infile2 >> str1;
             }
             else if (str1[0] == 'r') {
                 number1 = str2int(str1.substr(7,str1.length()-8));
-                if (str2[0] == 'r' && number1 == number2)
-                    threadd = 0;
                 infile2 >> str1;
+                if (str1[0] == 'y')
+                    int_list.remove(number1);
+                if (str2[0] == 'r' && number1 == number2 && str1[0] == 'y') {
+                    threadd = 0;
+                    if (add2 == 1) {
+                        add2 = 0;
+                        int_list.add(number1);
+                    }
+                }
             }
             else {
                 cout << " weired string: " << str1 << endl;

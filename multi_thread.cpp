@@ -1,33 +1,50 @@
 #include <iostream>
-#include <thread>
-#include <string>
+#include <thread>    		// threads
+#include <stdlib.h> 		// srand, rand
+#include <time.h>   		// time
+#include <fstream>  		// file stream
+#include <atomic>   		// atomic
 using namespace std;
 
-void function_1(){
-    cout << "Beauty is only skin-deep" << endl;
+
+std::atomic<int> x;
+std::atomic<bool> lock (false);
+
+void function_1(int id){
+	//int val = 500;
+	ofstream	op_txt[2];
+	string  	filename = "operations0.txt";
+	filename[10] = filename[10] + id;
+	op_txt[id-1].open(filename.c_str());
+
+	while (x<100){
+		if (!lock.exchange(true)) {
+    		x++;
+			cout << "id: " << id << " x=" << x << endl;
+			op_txt[id-1] << "id: " << id << " x=" << x << endl;
+			lock.exchange(false);
+		}
+
+	}
+	return;
 }
 
-class Fctor {
-public:
-    void operator()(string& msg) {
-        cout << "t1 says: " << msg << endl;
-    }
-};
 
 int main() {
-    string s = "Where there is no trust, there is no love";
-   // std::thread t1((Fctor()),s);
-    //thread t1(function_1_;
 
-    try {
-        cout << "from main: " << s << endl;
-    } catch (...) {
-        //t1.join();
-        throw;
-    }
+	int val;
+	cin >> val;
+	cout << val << endl;
 
-    //if (t1.joinable())
-        //t1.join();
+	x = 0;
+
+    std::thread t1(function_1,1);
+	std::thread t2(function_1,2);
+
+	if (t1.joinable())
+        t1.join();
+	if (t2.joinable())
+		t2.join();
     
     return 0;
 }

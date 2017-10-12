@@ -1,0 +1,17 @@
+timestamp6.system.mem_ctrls11.num_reads::system.pim_sys.dma
+timestamp6.system.mem_ctrls11.num_reads::total
+timestamp6.system.mem_ctrls11.num_writes::system.pim_sys.dma
+timestamp6.system.mem_ctrls11.num_writes::system.pim_sys.cpu.data
+timestamp6.system.mem_ctrls11.bw_read::system.pim_sys.dma
+timestamp6.system.mem_ctrls11.bw_read::system.cpu1.inst
+timestamp6.system.mem_ctrls11.bw_read::system.cpu1.data
+timestamp6.system.mem_ctrls11.bw_write::system.pim_sys.dma
+timestamp6.system.mem_ctrls11.bw_write::system.pim_sys.cpu.data
+timestamp6.system.mem_ctrls11.bw_write::total
+timestamp6.system.mem_ctrls11.bw_total::system.pim_sys.dma
+timestamp6.system.mem_ctrls11.bw_total::system.pim_sys.cpu.data
+timestamp6.system.mem_ctrls08.bytes_read::system.pim_sys.dma
+timestamp6.system.tol2bus.pkt_count_system.cpu0.icache.mem_side::system.l2.cpu_side
+timestamp6.system.tol2bus.pkt_count_system.cpu0.dcache.mem_side::system.l2.cpu_side
+timestamp6.system.tol2bus.pkt_count_system.cpu1.icache.mem_side::system.l2.cpu_side
+timestamp6.system.tol2bus.pkt_count_system.cpu1.dcache.mem_side::system.l2.cpu_side

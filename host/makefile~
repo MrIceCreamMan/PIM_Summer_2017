@@ -1,0 +1,11 @@
+# define the GCC variable
+GCC = g++ 
+
+a: host_generator.o
+	${GCC} host_generator.o -o a
+
+host_generator.o: host_generator.cpp
+	${GCC} -c host_generator.cpp
+
+clean:
+	rm *.o a init.txt operations.txt

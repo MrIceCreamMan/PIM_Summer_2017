@@ -1,0 +1,1 @@
+If you had problems with the disk images, just delete this file. Disk images will be automatically manipulated.
